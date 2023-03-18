@@ -1,0 +1,1 @@
+(()=>{var e=0,t=document.getElementById("counter");document.getElementById("counterBtn").addEventListener("click",(function(n){setStorage(e+1),e=getStorage("count"),t.innerText=e}))})();

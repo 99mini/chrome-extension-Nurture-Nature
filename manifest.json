@@ -1,17 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "Sunset Time Extension",
+  "name": "Extension Study",
   "version": "1.0",
-  "description": "A Chrome extension that tells the sunset time",
+  "description": "A Chrome extension",
 
   "action": {
-    "default_popup": "/src/popup.html"
+    "default_popup": "/src/popup/popup.html"
   },
-  "permissions": ["geolocation", "activeTab"],
+  "background": {
+    "service_worker": "/src/background.js"
+  },
+  "permissions": ["storage", "activeTab"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["dist/bundle.js"]
+      "js": ["dist/content.bundle.js"]
     }
   ]
 }
