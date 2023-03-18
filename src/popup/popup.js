@@ -4,7 +4,6 @@ setIcons(Number(counter.innerHTML));
 
 function incrementCount() {
   setStorage(Number(counter.innerHTML) + 1);
-  // chrome.storage.local.set({ count: Number(counter.innerHTML) + 1 });
   getStorage();
   setIcons(Number(counter.innerHTML));
 }
@@ -33,6 +32,11 @@ function getStorage() {
 }
 
 function setIcons(number) {
+  if (number < 5) {
+    document.getElementById("plantImg").src =
+      "../assets/images/plant/plant00.png";
+    chrome.action.setIcon({ path: "../assets/images/plant/plant00.png" });
+  }
   if (number >= 5) {
     document.getElementById("plantImg").src =
       "../assets/images/plant/plant16.png";

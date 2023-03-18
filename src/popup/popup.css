@@ -2,6 +2,17 @@ html {
   font-size: 62.5%;
 }
 
+section {
+  display: flex;
+  flex-direction: column;
+}
+
 body {
   width: 10rem;
+}
+
+#plantImg {
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
 }
