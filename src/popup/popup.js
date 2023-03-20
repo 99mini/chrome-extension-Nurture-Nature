@@ -1,34 +1,43 @@
+// loading DOM
+const container = document.getElementById("list-container");
 const counter = document.getElementById("counter");
-getStorage();
-setIcons(Number(counter.innerHTML));
+
+let commitCount = 0;
+let commitsByDay = {};
 
 function incrementCount() {
-  setStorage(Number(counter.innerHTML) + 1);
-  getStorage();
+  setStorage("count", Number(counter.innerHTML) + 1);
+  getStorage("commitCount");
   setIcons(Number(counter.innerHTML));
 }
 
-function clearCount() {
-  setStorage(0);
-  getStorage();
+async function refresh() {
+  // set total commitCount
+  commitCount = await getStorage("commitCount");
+  counter.innerHTML = commitCount;
 
-  document.getElementById("plantImg").src =
-    "../assets/images/plant/plant00.png";
-  chrome.action.setIcon({ path: "../assets/images/plant/plant00.png" });
+  // set commitsByDay
+  commitsByDay = await getStorage("commitsByDay");
+  container.appendChild(generateList(commitsByDay));
+
+  // set Icons
+  setIcons(Number(counter.innerHTML));
 }
 
-function setStorage(data) {
-  chrome.storage.local.set({ count: data });
+function setStorage(key, value) {
+  const setObj = {};
+  setObj[key] = value;
+  chrome.storage.local.set(setObj);
 }
 
-function getStorage() {
-  chrome.storage.local.get("count", function (result) {
-    if (result.count) {
-      counter.innerHTML = result.count;
-    } else {
-      counter.innerHTML = 0;
-    }
+async function getStorage(key) {
+  let newPromise = new Promise(function (resolve, reject) {
+    chrome.storage.local.get(key, function (result) {
+      resolve(result[key]);
+    });
   });
+  let result = await newPromise;
+  return result;
 }
 
 function setIcons(number) {
@@ -44,12 +53,35 @@ function setIcons(number) {
   }
 }
 
+// 커밋 리스트 디스플레이
+function generateList(data) {
+  let list = document.createElement("ul");
+  for (let key in data) {
+    let item = document.createElement("li");
+    item.appendChild(document.createTextNode(key));
+    if (typeof data[key] === "object") {
+      item.appendChild(generateList(data[key]));
+    } else {
+      item.appendChild(document.createTextNode(": " + data[key]));
+    }
+    list.appendChild(item);
+  }
+  return list;
+}
+
+// 클릭이벤트 만들기
 document
   .getElementById("counterBtn")
   .addEventListener("click", function (event) {
     incrementCount();
+    console.log(getStorage("commitsByDay"));
   });
 
-document.getElementById("clearBtn").addEventListener("click", function (event) {
-  clearCount();
-});
+document
+  .getElementById("refreshBtn")
+  .addEventListener("click", function (event) {
+    refresh();
+  });
+
+// get chrome local storage
+refresh();
