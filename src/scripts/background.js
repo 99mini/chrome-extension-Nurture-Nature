@@ -1,3 +1,8 @@
+/**
+ *
+ * @param {*} username
+ * @returns
+ */
 async function fecthCommitCount(username) {
   let commitCount = 0;
   let commitsByDay = {};
@@ -28,6 +33,10 @@ async function fecthCommitCount(username) {
   return { commitsByDay, commitCount };
 }
 
+/**
+ *
+ * @param {*} username
+ */
 async function setCommitCount(username) {
   const { commitsByDay, commitCount } = await fecthCommitCount(username);
   const interval = 10;
@@ -39,12 +48,22 @@ async function setCommitCount(username) {
   setStorage("commitsByDay", formatingCommitsByDay);
 }
 
+/**
+ * chrome local 저장소에 {key: value} 형태로 저장하기
+ * @param {string} key
+ * @param {string} value
+ */
 function setStorage(key, value) {
   const setObj = {};
   setObj[key] = value;
   chrome.storage.local.set(setObj);
 }
 
+/**
+ * chrome local 저장소에서 key값으러 데이터 가져오기
+ * @param {string} key
+ *
+ */
 function getStorage(key) {
   chrome.storage.local.get(key, function (result) {
     if (result[key]) {
@@ -110,6 +129,25 @@ function formateCommitsByDay(commitsByDayObj, interval) {
   return returnList.reverse();
 }
 
+/**
+ *
+ */
+function setTheme() {
+  chrome.theme.getAccentColor(function (result) {
+    setStorage("accentColor", result);
+    console.log(result.color);
+  });
+  chrome.theme.getBackgroundcolor(function (result) {
+    setStorage("backgroundColor", result);
+    console.log(result.color);
+  });
+
+  chrome.theme.getFrameColor(function (result) {
+    setStorage("frameColor", result);
+    console.log(result.color);
+  });
+}
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action == "refreshAction") {
     setCommitCount(username);
@@ -122,9 +160,20 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 const username = "99mini";
 
 chrome.runtime.onInstalled.addListener(() => {
-  // let color = "#3aa757";
-  // chrome.storage.sync.set({ color });
-  // console.log("Default background color set to %cgreen", `color: ${color}`);
+  const bgColor = "#1F2123";
+  const textColor = "#ECECF1";
+  chrome.storage.sync.set({ bgColor });
+  chrome.storage.sync.set({ textColor });
+
+  chrome.storage.sync.get(["bgColor", "textColor"], function (result) {
+    if (chrome.runtime.lastError) {
+      console.error(chrome.runtime.lastError);
+      return;
+    }
+
+    console.log("Value of bgColor:", result.bgColor);
+    console.log("Value of textColor:", result.textColor);
+  });
 
   // const username = "Relaxed-Mind";
 

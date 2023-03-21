@@ -1,3 +1,16 @@
+:root {
+  --color-background: #363636;
+  --color-text: #ececf1;
+  --color-accent-blue: #0361b0;
+  --color-green: green;
+  --color-red: red;
+  --font-size-xs: 1.2rem;
+  --font-size-sm: 1.4rem;
+  --font-size-base: 1.6rem;
+  --font-size-lg: 1.8rem;
+  --font-size-xl: 2rem;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,15 +18,26 @@
 
 html {
   font-size: 62.5%;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
-body {
-  width: 10rem;
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 li,
 ul {
-  text-decoration: none;
+  list-style-type: none;
+}
+
+.row-layout {
+  display: flex;
+  flex-direction: row;
 }
 
 #plant-img {
@@ -25,4 +49,27 @@ ul {
 .main-section {
   display: flex;
   flex-direction: column;
+  margin: 1rem;
+  width: 10rem;
+}
+.menu-button {
+  background-color: transparent;
+  color: var(--color-text);
+  border-radius: 0.5rem;
+}
+.menu-button:hover {
+  background-color: var(--color-accent-blue);
+}
+
+.line {
+  width: 100%;
+  height: 0.1rem;
+  background-color: pink;
+  border: none;
+
+  margin: 1rem 0;
+}
+
+.date-item {
+  padding: 0.1rem 0;
 }

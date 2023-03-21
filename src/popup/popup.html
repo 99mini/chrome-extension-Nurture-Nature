@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <link rel="stylesheet" href="popup.css" />
     <title>Nurture Nature!</title>
   </head>
   <body>
-    <header>Nurture Nature!</header>
     <section class="main-section">
+      <header>Nurture Nature!</header>
+      <div calss="row-layout">
+        <span class="default-font">총 커밋 수 - </span>
+        <span id="counter">0</span>
+      </div>
+      <hr class="line" />
       <img id="plant-img" src="" alt="" />
-      <button id="counter-btn">click</button>
-      <button id="refresh-btn">refresh</button>
       <div id="list-container"></div>
+      <hr class="line" />
+      <button id="counter-btn" class="menu-button">click</button>
+      <button id="refresh-btn" class="menu-button">refresh</button>
     </section>
-    <div id="counter">0</div>
     <script src="popup.js"></script>
   </body>
 </html>

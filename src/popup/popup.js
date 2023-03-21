@@ -14,7 +14,7 @@ function incrementCount() {
 
 async function refresh() {
   if (loading) {
-    callBackgroundFunc("refreshAction");
+    await callBackgroundFunc("refreshAction");
   }
   // set total commitCount
   commitCount = await getStorage("commitCount");
@@ -111,6 +111,7 @@ function updateDateList(dateList) {
 
     element.innerHTML = key + " - " + value;
   }
+  console.log("updateCommitsByDay");
 }
 
 // 클릭이벤트 만들기
@@ -130,10 +131,11 @@ document
  *
  * @param {*} actoinName
  */
-function callBackgroundFunc(actoinName) {
-  chrome.runtime.sendMessage({ action: actoinName }, function (response) {
+async function callBackgroundFunc(actoinName) {
+  await chrome.runtime.sendMessage({ action: actoinName }, function (response) {
     console.log("Background function called from popup");
   });
+  console.log("end background.js call");
 }
 
 // get chrome local storage
