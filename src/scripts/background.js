@@ -7,10 +7,13 @@ async function fecthCommitCount(username) {
   const repos = await repoResponse.json();
   for (const repo of repos) {
     const commitResponse = await fetch(
+      // get public commit count
       `https://api.github.com/repos/${repo.owner.login}/${repo.name}/commits?author=${username}`
+      // https://api.github.com/repos/99mini/pygame_study/commits?author=99mini
     );
 
     const commits = await commitResponse.json();
+    commitCount += commits.length;
     commits.forEach((commit) => {
       const date = new Date(commit.commit.author.date)
         .toISOString()
@@ -20,8 +23,6 @@ async function fecthCommitCount(username) {
       }
       commitsByDay[date]++;
     });
-
-    commitCount += commits.length;
   }
 
   return { commitsByDay, commitCount };
@@ -46,7 +47,6 @@ function setStorage(key, value) {
 
 function getStorage(key) {
   chrome.storage.local.get(key, function (result) {
-    console.log(result[key]);
     if (result[key]) {
       return result[key];
     } else {
@@ -56,9 +56,9 @@ function getStorage(key) {
 }
 
 /**
+ *
  * @param {Date} date `Date`
- * @returns `dateString`: `string`
- * - formating yyyy-mm-dd
+ * @returns {string} yyyy-mm-dd 형태의 string
  */
 function getDateString(date) {
   const year = date.getFullYear().toString();
@@ -72,7 +72,7 @@ function getDateString(date) {
 /**
  *
  * @param {number}interval
- * @returns `dates`: `Date[]`
+ * @returns {Date[]}
  * - 오늘부터 인터벌 기간 과거 동안의 Date 객체를 반환한다.
  * - 예] interval = 10, 오늘 1월 11일 => 1월 11일 ~ 1월 1일 까지의 Date 객체 반환
  */
@@ -89,8 +89,9 @@ function getDateObjList(interval) {
 
 /**
  *
- * @param {Object} commitsByDayObj
+ * @param {object} commitsByDayObj
  * @param {number} interval
+ * @returns {object[]} interval 기간동안의 커밋 리스트 {날짜: 개수}
  */
 function formateCommitsByDay(commitsByDayObj, interval) {
   const dates = getDateObjList(interval);
@@ -105,17 +106,27 @@ function formateCommitsByDay(commitsByDayObj, interval) {
     }
     returnList.push(tempObj);
   });
-
   console.log(returnList.reverse());
   return returnList.reverse();
 }
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action == "refreshAction") {
+    setCommitCount(username);
+
+    console.log("background.js called popup.js");
+    return getStorage("commitsByDay");
+  }
+});
+
+const username = "99mini";
 
 chrome.runtime.onInstalled.addListener(() => {
   // let color = "#3aa757";
   // chrome.storage.sync.set({ color });
   // console.log("Default background color set to %cgreen", `color: ${color}`);
 
-  const username = "99mini";
+  // const username = "Relaxed-Mind";
 
   setCommitCount(username);
   getStorage("commitCount");

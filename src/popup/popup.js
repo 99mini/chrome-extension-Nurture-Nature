@@ -1,6 +1,7 @@
 // loading DOM
 const listContainer = document.getElementById("list-container");
 const counter = document.getElementById("counter");
+let loading = false;
 
 let commitCount = 0;
 let commitsByDay = {};
@@ -12,14 +13,22 @@ function incrementCount() {
 }
 
 async function refresh() {
+  if (loading) {
+    callBackgroundFunc("refreshAction");
+  }
   // set total commitCount
   commitCount = await getStorage("commitCount");
   counter.innerHTML = commitCount;
 
   // set commitsByDay
   commitsByDay = await getStorage("commitsByDay");
-  listContainer.appendChild(generateList(commitsByDay, null, null));
 
+  if (!listContainer.hasChildNodes()) {
+    listContainer.appendChild(generateList(commitsByDay, null, null));
+  } else {
+    // TODO listContainer의 데이터 업데이트하기
+    updateDateList(commitsByDay);
+  }
   // set Icons
   setIcons(Number(counter.innerHTML));
 }
@@ -54,7 +63,11 @@ function setIcons(number) {
 }
 
 /**
- * 커밋 리스트 디스플레이
+ *
+ * @param {Array} data
+ * @param {HTMLElement} parentList
+ * @param {HTMLElement} parentItem
+ * @returns {HTMLElement} li list
  */
 function generateList(data, parentList, parentItem) {
   // TODO 이미 리스트가 있는 경우 리스트를 만들지 말고 데이터만 업데이트하기
@@ -66,14 +79,18 @@ function generateList(data, parentList, parentItem) {
   }
 
   for (let key in data) {
-    console.log(list);
     let item = document.createElement("li");
     item.className = "date-item";
+
     if (typeof data[key] === "object") {
       generateList(data[key], list, item);
     } else {
-      item.appendChild(document.createTextNode(key));
-      item.appendChild(document.createTextNode(" - " + data[key]));
+      if (item.hasChildNodes()) {
+        item.innerHTML(key + " - " + data[key]);
+      } else {
+        item.appendChild(document.createTextNode(key));
+        item.appendChild(document.createTextNode(" - " + data[key]));
+      }
     }
     if (parentItem) {
       list.appendChild(item);
@@ -84,12 +101,23 @@ function generateList(data, parentList, parentItem) {
   }
 }
 
+function updateDateList(dateList) {
+  const itemList = document.getElementsByClassName("date-item");
+  for (let index = 0; index < dateList.length; index++) {
+    const element = itemList[index];
+
+    const key = Object.keys(dateList[index]).toString();
+    const value = Object.values(dateList[index]).toString();
+
+    element.innerHTML = key + " - " + value;
+  }
+}
+
 // 클릭이벤트 만들기
 document
   .getElementById("counter-btn")
   .addEventListener("click", function (event) {
     incrementCount();
-    console.log(getStorage("commitsByDay"));
   });
 
 document
@@ -98,5 +126,16 @@ document
     refresh();
   });
 
+/**
+ *
+ * @param {*} actoinName
+ */
+function callBackgroundFunc(actoinName) {
+  chrome.runtime.sendMessage({ action: actoinName }, function (response) {
+    console.log("Background function called from popup");
+  });
+}
+
 // get chrome local storage
 refresh();
+loading = true;
