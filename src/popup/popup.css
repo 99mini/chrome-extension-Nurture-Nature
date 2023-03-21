@@ -1,19 +1,26 @@
+/* 기본 설정 */
 :root {
+  /* color */
   --color-background: #363636;
+  --color-dark-grey: #808080;
+  --color-light-grey: #e8e8e8;
   --color-text: #ececf1;
   --color-accent-blue: #0361b0;
   --color-green: green;
   --color-red: red;
-  --font-size-xs: 1.2rem;
-  --font-size-sm: 1.4rem;
-  --font-size-base: 1.6rem;
-  --font-size-lg: 1.8rem;
-  --font-size-xl: 2rem;
+
+  /* font */
+  --font-size-xs: 1rem;
+  --font-size-sm: 1.2rem;
+  --font-size-base: 1.4rem;
+  --font-size-lg: 1.6rem;
+  --font-size-xl: 1.8rem;
 }
 
 * {
   margin: 0;
   padding: 0;
+  font-size: var(--font-size-base);
 }
 
 html {
@@ -21,6 +28,12 @@ html {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
   background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
   color: var(--color-text);
 }
 
@@ -35,39 +48,81 @@ ul {
   list-style-type: none;
 }
 
-.row-layout {
-  display: flex;
-  flex-direction: row;
+input {
+  border: none;
+  outline: none;
+  background: none;
 }
+/* 기본 설정 */
 
-#plant-img {
-  width: 24px;
-  height: 24px;
-  margin: 0 auto;
-}
+/* 레이아웃 */
 .popup-section {
   display: flex;
   flex-direction: column;
   margin: 1rem;
-  width: 20rem;
+  width: 25rem;
 }
 
-#main-section {
+.flex-box {
   display: flex;
-  flex-direction: column;
-  margin: 1rem;
-  width: 20rem;
 }
+
+.row-layout {
+  display: flex;
+  flex-direction: row;
+}
+/* 레이아웃 */
+
+/* 아이디 */
+#plant-img {
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  display: flex;
+}
+
+#hello-user-a:hover {
+  color: var(--color-dark-grey);
+}
+/* 아이디 */
+
+/* 컴포넌트 */
+/* button */
 .menu-button {
   background-color: transparent;
   color: var(--color-text);
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
 }
+
 .menu-button:hover {
   background-color: var(--color-accent-blue);
 }
 
+.submit-style-btn {
+  width: 8rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  margin: 1rem;
+  color: var(--color-text);
+  transition: all 0.5s ease;
+}
+
+.submit-style-btn:focus,
+.submit-style-btn:hover {
+  filter: brightness(130%);
+}
+
+.cancel-style-btn {
+  background-color: var(--color-dark-grey);
+}
+
+.answer-style-btn {
+  background-color: var(--color-accent-blue);
+}
+/* button */
+
+/* line */
 .line {
   width: 100%;
   height: 0.1rem;
@@ -77,6 +132,31 @@ ul {
   margin: 1rem 0;
 }
 
+/* input */
+.text-input {
+  border: 0.1rem solid var(--color-text);
+  color: var(--color-text);
+  padding: 0.2rem 0;
+}
+
+/* li */
 .date-item {
   padding: 0.1rem 0;
 }
+
+/* div */
+#date-list-container {
+  font-size: var(--font-size-base);
+}
+
+/* h1 */
+.title-text {
+  font-size: var(--font-size-lg);
+  padding: 1rem 0;
+}
+
+/* label */
+.text-input-label {
+  margin-bottom: 2rem;
+}
+/* 컴포넌트 */

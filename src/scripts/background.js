@@ -1,3 +1,11 @@
+// chrome local storage key
+const USER_ID = "userId";
+const COMMIT_COUNT = "commitCount";
+const COMMITS_BY_DAY = "commitsByDay";
+
+// background action name
+const REFRESH_ACTION = "refreshAction";
+
 /**
  *
  * @param {*} username
@@ -44,8 +52,8 @@ async function setCommitCount(username) {
   console.log("setCommitCount");
   const formatingCommitsByDay = formateCommitsByDay(commitsByDay, interval);
 
-  setStorage("commitCount", commitCount);
-  setStorage("commitsByDay", formatingCommitsByDay);
+  setStorage(COMMIT_COUNT, commitCount);
+  setStorage(COMMITS_BY_DAY, formatingCommitsByDay);
 }
 
 /**
@@ -64,14 +72,14 @@ function setStorage(key, value) {
  * @param {string} key
  *
  */
-function getStorage(key) {
-  chrome.storage.local.get(key, function (result) {
-    if (result[key]) {
-      return result[key];
-    } else {
-      return undefined;
-    }
+async function getStorage(key) {
+  let newPromise = new Promise(function (resolve, reject) {
+    chrome.storage.local.get(key, function (result) {
+      resolve(result[key]);
+    });
   });
+  let result = await newPromise;
+  return result;
 }
 
 /**
@@ -129,19 +137,23 @@ function formateCommitsByDay(commitsByDayObj, interval) {
   return returnList.reverse();
 }
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.action == "refreshAction") {
-    setCommitCount(username);
+chrome.runtime.onMessage.addListener(async function (
+  request,
+  sender,
+  sendResponse
+) {
+  if (request.action === REFRESH_ACTION) {
+    const userId = await getStorage(USER_ID);
+    console.log(userId);
+    await setCommitCount(userId);
 
     console.log("background.js called popup.js");
-    return getStorage("commitsByDay");
+    return getStorage(COMMITS_BY_DAY);
   }
 });
 
-const username = "99mini";
-
 chrome.runtime.onInstalled.addListener(() => {
-  setCommitCount(username);
-  getStorage("commitCount");
-  getStorage("commitsByDay");
+  // setCommitCount(username);
+  // getStorage("commitCount");
+  // getStorage("commitsByDay");
 });
