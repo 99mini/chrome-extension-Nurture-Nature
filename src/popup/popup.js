@@ -1,17 +1,51 @@
 // loading DOM
 const listContainer = document.getElementById("list-container");
 const counter = document.getElementById("counter");
+const mainSetcionElement = document.getElementById("main-section");
+const setUserIdSetcionElement = document.getElementById("set-userId-section");
 let loading = false;
 
 let commitCount = 0;
 let commitsByDay = {};
 
-function incrementCount() {
-  setStorage("count", Number(counter.innerHTML) + 1);
-  getStorage("commitCount");
-  setIcons(Number(counter.innerHTML));
+// get chrome local storage
+refresh();
+togglePopupMenu("main");
+loading = true;
+
+/**
+ *
+ * @param {string} mode
+ */
+function togglePopupMenu(mode) {
+  switch (mode) {
+    case "main":
+      mainSetcionElement.style.display = "flex";
+      setUserIdSetcionElement.style.display = "none";
+
+      console.log("main");
+      break;
+    case "set-userId":
+      mainSetcionElement.style.display = "none";
+      setUserIdSetcionElement.style.display = "flex";
+      break;
+
+    default:
+      break;
+  }
 }
 
+/**
+ *
+ * @param {*} userId
+ */
+function setUserId(userId) {
+  setStorage("userId", userId);
+}
+
+/**
+ *
+ */
 async function refresh() {
   if (loading) {
     await callBackgroundFunc("refreshAction");
@@ -116,9 +150,10 @@ function updateDateList(dateList) {
 
 // 클릭이벤트 만들기
 document
-  .getElementById("counter-btn")
+  .getElementById("set-userId-btn")
   .addEventListener("click", function (event) {
-    incrementCount();
+    togglePopupMenu("set-userId");
+    // setUserId();
   });
 
 document
@@ -126,6 +161,10 @@ document
   .addEventListener("click", function (event) {
     refresh();
   });
+
+document.getElementById("back-btn").addEventListener("click", function (event) {
+  togglePopupMenu("main");
+});
 
 /**
  *
@@ -137,7 +176,3 @@ async function callBackgroundFunc(actoinName) {
   });
   console.log("end background.js call");
 }
-
-// get chrome local storage
-refresh();
-loading = true;

@@ -129,25 +129,6 @@ function formateCommitsByDay(commitsByDayObj, interval) {
   return returnList.reverse();
 }
 
-/**
- *
- */
-function setTheme() {
-  chrome.theme.getAccentColor(function (result) {
-    setStorage("accentColor", result);
-    console.log(result.color);
-  });
-  chrome.theme.getBackgroundcolor(function (result) {
-    setStorage("backgroundColor", result);
-    console.log(result.color);
-  });
-
-  chrome.theme.getFrameColor(function (result) {
-    setStorage("frameColor", result);
-    console.log(result.color);
-  });
-}
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action == "refreshAction") {
     setCommitCount(username);
@@ -160,23 +141,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 const username = "99mini";
 
 chrome.runtime.onInstalled.addListener(() => {
-  const bgColor = "#1F2123";
-  const textColor = "#ECECF1";
-  chrome.storage.sync.set({ bgColor });
-  chrome.storage.sync.set({ textColor });
-
-  chrome.storage.sync.get(["bgColor", "textColor"], function (result) {
-    if (chrome.runtime.lastError) {
-      console.error(chrome.runtime.lastError);
-      return;
-    }
-
-    console.log("Value of bgColor:", result.bgColor);
-    console.log("Value of textColor:", result.textColor);
-  });
-
-  // const username = "Relaxed-Mind";
-
   setCommitCount(username);
   getStorage("commitCount");
   getStorage("commitsByDay");
