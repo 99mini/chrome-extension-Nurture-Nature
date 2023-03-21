@@ -1,18 +1,28 @@
-html {
-  font-size: 62.5%;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-section {
-  display: flex;
-  flex-direction: column;
+html {
+  font-size: 62.5%;
 }
 
 body {
   width: 10rem;
 }
 
-#plantImg {
+li,
+ul {
+  text-decoration: none;
+}
+
+#plant-img {
   width: 24px;
   height: 24px;
   margin: 0 auto;
+}
+
+.main-section {
+  display: flex;
+  flex-direction: column;
 }

@@ -1,4 +1,4 @@
-async function getCommitCount(username) {
+async function fecthCommitCount(username) {
   let commitCount = 0;
   let commitsByDay = {};
   const repoResponse = await fetch(
@@ -23,16 +23,19 @@ async function getCommitCount(username) {
 
     commitCount += commits.length;
   }
-  // return commitCount;
+
   return { commitsByDay, commitCount };
 }
 
 async function setCommitCount(username) {
-  const { commitsByDay, commitCount } = await getCommitCount(username);
+  const { commitsByDay, commitCount } = await fecthCommitCount(username);
+  const interval = 10;
 
   console.log("setCommitCount");
+  const formatingCommitsByDay = formateCommitsByDay(commitsByDay, interval);
+
   setStorage("commitCount", commitCount);
-  setStorage("commitsByDay", commitsByDay);
+  setStorage("commitsByDay", formatingCommitsByDay);
 }
 
 function setStorage(key, value) {
@@ -50,6 +53,61 @@ function getStorage(key) {
       return undefined;
     }
   });
+}
+
+/**
+ * @param {Date} date `Date`
+ * @returns `dateString`: `string`
+ * - formating yyyy-mm-dd
+ */
+function getDateString(date) {
+  const year = date.getFullYear().toString();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+
+  const dateString = `${year}-${month}-${day}`;
+  return dateString;
+}
+
+/**
+ *
+ * @param {number}interval
+ * @returns `dates`: `Date[]`
+ * - 오늘부터 인터벌 기간 과거 동안의 Date 객체를 반환한다.
+ * - 예] interval = 10, 오늘 1월 11일 => 1월 11일 ~ 1월 1일 까지의 Date 객체 반환
+ */
+function getDateObjList(interval) {
+  const dates = [];
+
+  for (let i = 0; i < interval; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    dates.push(date);
+  }
+  return dates;
+}
+
+/**
+ *
+ * @param {Object} commitsByDayObj
+ * @param {number} interval
+ */
+function formateCommitsByDay(commitsByDayObj, interval) {
+  const dates = getDateObjList(interval);
+  const dateStringList = dates.map((date) => getDateString(date));
+  let returnList = [];
+  dateStringList.map((dateString) => {
+    let tempObj = {};
+    if (!commitsByDayObj[dateString]) {
+      tempObj[dateString] = 0;
+    } else {
+      tempObj[dateString] = commitsByDayObj[dateString];
+    }
+    returnList.push(tempObj);
+  });
+
+  console.log(returnList.reverse());
+  return returnList.reverse();
 }
 
 chrome.runtime.onInstalled.addListener(() => {
