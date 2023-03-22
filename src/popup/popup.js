@@ -1,9 +1,13 @@
+// TODO userid가 undefined일 때 표현하기
 // loading DOM
 const helloUserA = document.getElementById("hello-user-a");
 const dateListContainer = document.getElementById("date-list-container");
 const counter = document.getElementById("counter");
 const mainSetcionElement = document.getElementById("main-section");
 const setUserIdSetcionElement = document.getElementById("set-userId-section");
+
+// img path
+const DEMO_IMG_PAHT = "../assets/images/plant/plant00.png";
 
 // constant
 const MAIN = "main";
@@ -21,18 +25,18 @@ let loading = false;
 
 let commitCount = 0;
 let commitsByDay = {};
+let userId = "";
 
 init();
 
 /**
  *
  */
-async function init() {
+function init() {
   // get chrome local storage
   refresh();
   togglePopupMenu(MAIN);
-  let userId = await getStorage(USER_ID);
-  setStorage(USER_ID, userId);
+
   displayUserId(userId);
 
   // 클릭이벤트 만들기
@@ -40,7 +44,6 @@ async function init() {
     .getElementById("set-userId-btn")
     .addEventListener("click", function (event) {
       togglePopupMenu(SET_USER_ID);
-      // setUserId();
     });
 
   document
@@ -70,11 +73,16 @@ async function init() {
 function setHandleSubmit(inputElementId, btnElementId, storageKey) {
   const btnElement = document.getElementById(btnElementId);
 
-  btnElement.onclick = () => {
-    setStorage(storageKey, document.getElementById(inputElementId).value);
-    togglePopupMenu(MAIN);
+  btnElement.onclick = async () => {
+    const inputEl = document.getElementById(inputElementId);
+    const inputContent = inputEl.value;
 
-    refresh();
+    inputEl.placeholder = inputContent;
+
+    setStorage(storageKey, inputContent);
+    inputEl.value = "";
+    await refresh();
+    togglePopupMenu(MAIN);
   };
 }
 
@@ -110,6 +118,7 @@ function displayUserId(userId) {
  * call github api and set commit info and set innerHTML
  */
 async function refresh() {
+  // TODO 유저 이름을 바꿀 때 api 호출이 느린것인지 업데이트가 느리다.
   // 만약 첫 번째로딩이 아니면 백그라운드에서 api 호출을 한다.
   if (loading) {
     await callBackgroundFunc(REFRESH_ACTION);
@@ -127,8 +136,12 @@ async function refresh() {
     // TODO dateListContainer의 데이터 업데이트하기
     updateDateList(commitsByDay);
   }
-  // set Icons
+  // display Icons
   setIcons(Number(counter.innerHTML));
+
+  // display userID
+  userId = await getStorage(USER_ID);
+  displayUserId(userId);
 }
 
 /**
@@ -163,9 +176,8 @@ async function getStorage(key) {
  */
 function setIcons(number) {
   if (number < 5) {
-    document.getElementById("plant-img").src =
-      "../assets/images/plant/plant00.png";
-    chrome.action.setIcon({ path: "../assets/images/plant/plant00.png" });
+    document.getElementById("plant-img").src = DEMO_IMG_PAHT;
+    chrome.action.setIcon({ path: DEMO_IMG_PAHT });
   }
   if (number >= 5) {
     document.getElementById("plant-img").src =
@@ -197,11 +209,17 @@ function generateList(data, parentList, parentItem) {
     if (typeof data[key] === "object") {
       generateList(data[key], list, item);
     } else {
+      var img = document.createElement("img");
+      img.src = DEMO_IMG_PAHT;
+      img.alt = "deom img";
       if (item.hasChildNodes()) {
-        item.innerHTML(key + " - " + data[key]);
+        item.createTextNode(key + " - ");
+        item.appendChild(img);
+        item.createTextNode(data[key]);
       } else {
-        item.appendChild(document.createTextNode(key));
-        item.appendChild(document.createTextNode(" - " + data[key]));
+        item.appendChild(document.createTextNode(key + " - "));
+        item.appendChild(img);
+        item.appendChild(document.createTextNode(data[key]));
       }
     }
     if (parentItem) {

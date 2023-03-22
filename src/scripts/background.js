@@ -144,11 +144,9 @@ chrome.runtime.onMessage.addListener(async function (
 ) {
   if (request.action === REFRESH_ACTION) {
     const userId = await getStorage(USER_ID);
-    console.log(userId);
     await setCommitCount(userId);
 
-    console.log("background.js called popup.js");
-    return getStorage(COMMITS_BY_DAY);
+    return await getStorage(COMMITS_BY_DAY);
   }
 });
 
