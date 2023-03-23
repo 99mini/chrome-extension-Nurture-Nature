@@ -9,7 +9,14 @@ const setUserIdSetcionElement = document.getElementById("set-userId-section");
 // img path
 const DEMO_IMG_PAHT = "../assets/images/plant/plant00.png";
 
-// constant
+// scg path
+const LEAF00_SVG_PAHT = "../assets/svgs/leaf/leaf00.svg";
+const LEAF01_SVG_PAHT = "../assets/svgs/leaf/leaf01.svg";
+const LEAF02_SVG_PAHT = "../assets/svgs/leaf/leaf02.svg";
+const LEAF03_SVG_PAHT = "../assets/svgs/leaf/leaf03.svg";
+const LEAF04_SVG_PAHT = "../assets/svgs/leaf/leaf04.svg";
+
+// page
 const MAIN = "main";
 const SET_USER_ID = "set-userId";
 
@@ -20,6 +27,7 @@ const COMMITS_BY_DAY = "commitsByDay";
 
 // background action name
 const REFRESH_ACTION = "refreshAction";
+const CLOSE_POPUP = "closePopup";
 
 let loading = false;
 
@@ -32,9 +40,11 @@ init();
 /**
  *
  */
-function init() {
+async function init() {
+  console.log("init call...!");
   // get chrome local storage
-  refresh();
+  loading = false;
+  await refresh();
   togglePopupMenu(MAIN);
 
   displayUserId(userId);
@@ -48,8 +58,8 @@ function init() {
 
   document
     .getElementById("refresh-btn")
-    .addEventListener("click", function (event) {
-      refresh();
+    .addEventListener("click", async function (event) {
+      await refresh();
     });
 
   document
@@ -64,25 +74,54 @@ function init() {
 }
 
 /**
+ * chrome local 저장소에 {key: value} 형태로 저장하기
+ * @param {string} key
+ * @param {string} value
+ */
+function setStorage(key, value) {
+  let setObj = {};
+  setObj[key] = value;
+  chrome.storage.local.set(setObj);
+}
+
+/**
+ *
+ * @param {*} key
+ * @returns
+ */
+async function getStorage(key) {
+  let newPromise = new Promise(function (resolve, reject) {
+    chrome.storage.local.get(key, function (result) {
+      resolve(result[key]);
+    });
+  });
+  let result = await newPromise;
+  return result;
+}
+
+/**
  *
  * @param {*} inputElementId
  * @param {*} btnElementId
  * @param {*} storageKey
  *
  */
-function setHandleSubmit(inputElementId, btnElementId, storageKey) {
+async function setHandleSubmit(inputElementId, btnElementId, storageKey) {
   const btnElement = document.getElementById(btnElementId);
+  const inputEl = document.getElementById(inputElementId);
+
+  const defaultPlaceholder = await getStorage(storageKey);
+  inputEl.placeholder = defaultPlaceholder;
 
   btnElement.onclick = async () => {
-    const inputEl = document.getElementById(inputElementId);
     const inputContent = inputEl.value;
+    console.log(inputContent);
 
-    inputEl.placeholder = inputContent;
-
-    setStorage(storageKey, inputContent);
-    inputEl.value = "";
-    await refresh();
-    togglePopupMenu(MAIN);
+    if (inputContent.length !== 0) {
+      setStorage(storageKey, inputContent);
+      inputEl.value = "";
+      window.close();
+    }
   };
 }
 
@@ -118,11 +157,9 @@ function displayUserId(userId) {
  * call github api and set commit info and set innerHTML
  */
 async function refresh() {
-  // TODO 유저 이름을 바꿀 때 api 호출이 느린것인지 업데이트가 느리다.
-  // 만약 첫 번째로딩이 아니면 백그라운드에서 api 호출을 한다.
-  if (loading) {
-    await callBackgroundFunc(REFRESH_ACTION);
-  }
+  // if (loading) {
+  await callBackgroundFunc(REFRESH_ACTION);
+  // }
   // set total commitCount
   commitCount = await getStorage(COMMIT_COUNT);
   counter.innerHTML = commitCount;
@@ -133,7 +170,6 @@ async function refresh() {
   if (!dateListContainer.hasChildNodes()) {
     dateListContainer.appendChild(generateList(commitsByDay, null, null));
   } else {
-    // TODO dateListContainer의 데이터 업데이트하기
     updateDateList(commitsByDay);
   }
   // display Icons
@@ -146,49 +182,25 @@ async function refresh() {
 
 /**
  *
- * @param {*} key
- * @param {*} value
- */
-function setStorage(key, value) {
-  const setObj = {};
-  setObj[key] = value;
-  chrome.storage.local.set(setObj);
-}
-
-/**
- *
- * @param {*} key
- * @returns
- */
-async function getStorage(key) {
-  let newPromise = new Promise(function (resolve, reject) {
-    chrome.storage.local.get(key, function (result) {
-      resolve(result[key]);
-    });
-  });
-  let result = await newPromise;
-  return result;
-}
-
-/**
- *
  * @param {*} number
  */
 function setIcons(number) {
-  if (number < 5) {
-    document.getElementById("plant-img").src = DEMO_IMG_PAHT;
+  const plantImgEl = document.getElementById("plant-img");
+  if (number === 0) {
+    plantImgEl.src = LEAF00_SVG_PAHT;
+    chrome.action.setIcon({ path: LEAF00_SVG_PAHT });
+  } else if (number < 10) {
+    plantImgEl.src = DEMO_IMG_PAHT;
     chrome.action.setIcon({ path: DEMO_IMG_PAHT });
-  }
-  if (number >= 5) {
-    document.getElementById("plant-img").src =
-      "../assets/images/plant/plant16.png";
+  } else if (number >= 10) {
+    plantImgEl.src = "../assets/images/plant/plant16.png";
     chrome.action.setIcon({ path: "../assets/images/plant/plant16.png" });
   }
 }
 
 /**
  *
- * @param {Array} data
+ * @param {{}} data
  * @param {HTMLElement} parentList
  * @param {HTMLElement} parentItem
  * @returns {HTMLElement} li list
@@ -209,9 +221,8 @@ function generateList(data, parentList, parentItem) {
     if (typeof data[key] === "object") {
       generateList(data[key], list, item);
     } else {
-      var img = document.createElement("img");
-      img.src = DEMO_IMG_PAHT;
-      img.alt = "deom img";
+      var img = setDateItem(Number(data[key]), item);
+
       if (item.hasChildNodes()) {
         item.createTextNode(key + " - ");
         item.appendChild(img);
@@ -231,6 +242,43 @@ function generateList(data, parentList, parentItem) {
   }
 }
 
+/**
+ *
+ * @param {number} count
+ * @param {HTMLElement} item
+ * @returns {HTMLImageElement} img
+ */
+function setDateItem(count, item) {
+  var img = new Image();
+  img.classList.add("commit-img");
+  if (count === 0) {
+    item.classList.add("off-count");
+    img.src = LEAF00_SVG_PAHT;
+    img.alt = "leaf00 svg";
+  } else {
+    item.classList.add("on-count");
+    if (count < 3) {
+      img.src = LEAF01_SVG_PAHT;
+      img.alt = "leaf01 svg";
+    } else if (count < 6) {
+      img.src = LEAF02_SVG_PAHT;
+      img.alt = "leaf02 svg";
+    } else if (count < 10) {
+      img.src = LEAF03_SVG_PAHT;
+      img.alt = "leaf03 svg";
+    } else {
+      img.src = LEAF04_SVG_PAHT;
+      img.alt = "leaf04 svg";
+    }
+  }
+
+  return img;
+}
+
+/**
+ *
+ * @param {*} dateList
+ */
 function updateDateList(dateList) {
   const itemList = document.getElementsByClassName("date-item");
   for (let index = 0; index < dateList.length; index++) {
@@ -238,8 +286,12 @@ function updateDateList(dateList) {
 
     const key = Object.keys(dateList[index]).toString();
     const value = Object.values(dateList[index]).toString();
+    const img = setDateItem(Number(value), element);
 
-    element.innerHTML = key + " - " + value;
+    element.createTextNode(key + " - ");
+    element.appendChild(img);
+    element.createTextNode(data[key]);
+    // element.innerHTML = key + " - " + value;
   }
   console.log("updateCommitsByDay");
 }

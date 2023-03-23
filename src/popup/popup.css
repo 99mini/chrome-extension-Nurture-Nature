@@ -6,8 +6,9 @@
   --color-light-grey: #e8e8e8;
   --color-text: #ececf1;
   --color-accent-blue: #0361b0;
-  --color-green: green;
-  --color-red: red;
+  --color-green: #2fbc80;
+  --color-red: #ec3c3c;
+  --color-soil: #eab18e;
 
   /* font */
   --font-size-xs: 1rem;
@@ -87,8 +88,18 @@ input {
 /* 아이디 */
 
 /* 컴포넌트 */
+/* img */
+img.commit-img {
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0 0.5rem;
+}
 /* button */
 .menu-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
   background-color: transparent;
   color: var(--color-text);
   border-radius: 0.5rem;
@@ -97,6 +108,9 @@ input {
 
 .menu-button:hover {
   background-color: var(--color-accent-blue);
+}
+.menu-button:hover .short-cut-text {
+  color: var(--color-text);
 }
 
 .submit-style-btn {
@@ -126,7 +140,7 @@ input {
 .line {
   width: 100%;
   height: 0.1rem;
-  background-color: pink;
+  background-color: var(--color-dark-grey);
   border: none;
 
   margin: 1rem 0;
@@ -139,9 +153,17 @@ input {
   padding: 0.2rem 0;
 }
 
+/* ul */
+
 /* li */
+li.off-count {
+  color: var(--color-soil);
+}
+li.on-count {
+  color: var(--color-green);
+}
 .date-item {
-  padding: 0.1rem 0;
+  padding: 0.2rem 0;
   display: flex;
   align-items: center;
 }
@@ -161,4 +183,10 @@ input {
 .text-input-label {
   margin-bottom: 2rem;
 }
+
+/* span */
+.short-cut-text {
+  color: var(--color-dark-grey);
+}
+
 /* 컴포넌트 */

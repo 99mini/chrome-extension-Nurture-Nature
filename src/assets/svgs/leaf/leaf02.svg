@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect x="3" y="3" width="17" height="21" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="leaf02" transform="translate(-1.256 -2.869)">
+    <rect id="사각형_2" data-name="사각형 2" width="24" height="24" transform="translate(1.256 2.869)" fill="none"/>
+    <g id="스크롤_그룹_7" data-name="스크롤 그룹 7" transform="translate(2.256 1.869)" clip-path="url(#clip-path)" style="isolation: isolate">
+      <g id="그룹_6" data-name="그룹 6" transform="translate(-1.617 -2.352)">
+        <g id="그룹_4" data-name="그룹 4" transform="matrix(0.839, 0.545, -0.545, 0.839, 7.826, 1.787)">
+          <g id="그룹_2" data-name="그룹 2" transform="matrix(1, -0.017, 0.017, 1, 0, 0.381)">
+            <g id="single-leaf" transform="translate(7.039 8.645) rotate(-47)">
+              <path id="패스_2" data-name="패스 2" d="M.571,6.855S-2.131,1.874,4.222.864C6.421.514,7.735.076,8.75.011,10.189-.084,10,.455,10,.455s-.983.838-1.937,3.789C6.9,6.817,4.322,8.409.571,6.855" transform="translate(1.817 0)" fill="#24aa71"/>
+              <path id="패스_1" data-name="패스 1" d="M0,6.037C5.128-.294,7.425,0,7.425,0" transform="translate(0 3.184)" fill="none" stroke="#25694c" stroke-linecap="round" stroke-width="0.5"/>
+            </g>
+            <g id="single-leaf-2" data-name="single-leaf" transform="matrix(0.891, 0.454, -0.454, 0.891, 6.823, 0.044)">
+              <path id="패스_2-2" data-name="패스 2" d="M9.946,6.673S12.713,1.948,6.054.894C3.75.529,2.371.092,1.308.016-.2-.1.01.422.01.422s1.039.815,2.071,3.649c1.245,2.477,3.959,4.034,7.865,2.6" transform="translate(0 0)" fill="#178355"/>
+              <path id="패스_1-2" data-name="패스 1" d="M7.635,5.82C2.136-.116,0,0,0,0" transform="translate(4.632 3.094)" fill="none" stroke="#25694c" stroke-linecap="round" stroke-width="0.5"/>
+            </g>
+            <g id="single-leaf-3" data-name="single-leaf" transform="translate(11.26 5.03) rotate(39)">
+              <path id="패스_2-3" data-name="패스 2" d="M6.689,4.372s1.9-3.149-2.6-3.809C2.536.335,1.606.053.887.008-.132-.057.006.285.006.285A5.533,5.533,0,0,1,1.384,2.693c.826,1.635,2.653,2.652,5.3,1.679" transform="translate(0 0)" fill="#2fbc80"/>
+              <path id="패스_1-3" data-name="패스 1" d="M5.07,3.936C1.429-.093,0,0,0,0" transform="translate(3.116 2.03)" fill="none" stroke="#25694c" stroke-linecap="round" stroke-width="0.3"/>
+            </g>
+            <g id="single-leaf-4" data-name="single-leaf" transform="matrix(0.996, 0.087, -0.087, 0.996, 0.919, 3.163)">
+              <path id="패스_2-4" data-name="패스 2" d="M11.118,7.835s3.063-5.52-4.366-6.773C4.182.628,2.642.112,1.456.019-.225-.115.011.492.011.492s1.162.957,2.326,4.276c1.4,2.9,4.433,4.733,8.781,3.067" transform="translate(0 0)" fill="#219b67"/>
+              <path id="패스_1-4" data-name="패스 1" d="M8.674,6.909C2.58-.274,0,0,0,0" transform="translate(5.177 3.631)" fill="none" stroke="#25694c" stroke-linecap="round" stroke-width="0.5"/>
+            </g>
+          </g>
+        </g>
+        <path id="패스_3" data-name="패스 3" d="M63.463,121.385a31.146,31.146,0,0,0-1.5,5.131" transform="translate(-51.587 -100.535)" fill="none" stroke="#25694c" stroke-linecap="round" stroke-width="0.6"/>
+      </g>
+    </g>
+  </g>
+</svg>

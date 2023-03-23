@@ -11,7 +11,7 @@
     "service_worker": "/src/scripts/background.js"
   },
   "options_page": "src/options/options.html",
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage", "activeTab", "commands"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="leaf00" transform="translate(-46 -146)">
+    <rect id="layout-box" width="24" height="24" transform="translate(46 146)" fill="none"/>
+    <g id="그룹_13" data-name="그룹 13" transform="translate(0 -5)">
+      <rect id="사각형_3" data-name="사각형 3" width="24" height="14" transform="translate(46 156)" fill="#bc6529"/>
+      <path id="패스_6" data-name="패스 6" d="M0,0H24V6H0Z" transform="translate(46 156)" fill="#d17e47"/>
+      <rect id="사각형_4" data-name="사각형 4" width="24" height="3" transform="translate(46 160)" fill="#eca579"/>
+      <rect id="사각형_5" data-name="사각형 5" width="2" height="14" transform="translate(68 156)" fill="rgba(0,0,0,0.6)" style="mix-blend-mode: soft-light;isolation: isolate"/>
+      <circle id="타원_11" data-name="타원 11" cx="0.5" cy="0.5" r="0.5" transform="translate(50 158)" fill="#eab18e"/>
+      <circle id="타원_24" data-name="타원 24" cx="0.5" cy="0.5" r="0.5" transform="translate(50 166)" fill="#e3823f"/>
+      <circle id="타원_16" data-name="타원 16" cx="0.5" cy="0.5" r="0.5" transform="translate(58 158)" fill="#eab18e"/>
+      <circle id="타원_20" data-name="타원 20" cx="0.5" cy="0.5" r="0.5" transform="translate(58 166)" fill="#e3823f"/>
+      <circle id="타원_12" data-name="타원 12" cx="0.5" cy="0.5" r="0.5" transform="translate(52 157)" fill="#eab18e"/>
+      <circle id="타원_23" data-name="타원 23" cx="0.5" cy="0.5" r="0.5" transform="translate(52 164)" fill="#e3823f"/>
+      <circle id="타원_17" data-name="타원 17" cx="0.5" cy="0.5" r="0.5" transform="translate(60 157)" fill="#eab18e"/>
+      <circle id="타원_21" data-name="타원 21" cx="0.5" cy="0.5" r="0.5" transform="translate(60 164)" fill="#e3823f"/>
+      <circle id="타원_13" data-name="타원 13" cx="0.5" cy="0.5" r="0.5" transform="translate(54 158)" fill="#eab18e"/>
+      <circle id="타원_25" data-name="타원 25" cx="0.5" cy="0.5" r="0.5" transform="translate(54 166)" fill="#e3823f"/>
+      <circle id="타원_18" data-name="타원 18" cx="0.5" cy="0.5" r="0.5" transform="translate(62 158)" fill="#eab18e"/>
+      <circle id="타원_22" data-name="타원 22" cx="0.5" cy="0.5" r="0.5" transform="translate(62 166)" fill="#e3823f"/>
+      <circle id="타원_14" data-name="타원 14" cx="0.5" cy="0.5" r="0.5" transform="translate(56 157)" fill="#eab18e"/>
+      <circle id="타원_26" data-name="타원 26" cx="0.5" cy="0.5" r="0.5" transform="translate(56 164)" fill="#e3823f"/>
+      <circle id="타원_15" data-name="타원 15" cx="0.5" cy="0.5" r="0.5" transform="translate(64 157)" fill="#eab18e"/>
+      <circle id="타원_19" data-name="타원 19" cx="0.5" cy="0.5" r="0.5" transform="translate(64 164)" fill="#e3823f"/>
+    </g>
+  </g>
+</svg>
