@@ -1,6 +1,3 @@
-// img path
-const DEMO_IMG_PAHT = "../assets/images/plant/plant00.png";
-
 // chrome local storage key
 const USER_ID = "userId";
 const COMMIT_COUNT = "commitCount";
@@ -212,5 +209,4 @@ chrome.runtime.onInstalled.addListener(() => {
   setStorage(USER_ID, "");
   setStorage(COMMIT_COUNT, 0);
   setStorage(COMMITS_BY_DAY, {});
-  chrome.action.setIcon({ path: DEMO_IMG_PAHT });
 });

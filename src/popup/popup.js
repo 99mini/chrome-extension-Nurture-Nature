@@ -6,9 +6,6 @@ const counter = document.getElementById("counter");
 const mainSetcionElement = document.getElementById("main-section");
 const setUserIdSetcionElement = document.getElementById("set-userId-section");
 
-// img path
-const DEMO_IMG_PAHT = "../assets/images/plant/plant00.png";
-
 // scg path
 const LEAF00_SVG_PAHT = "../assets/svgs/leaf/leaf00.svg";
 const LEAF01_SVG_PAHT = "../assets/svgs/leaf/leaf01.svg";
@@ -173,27 +170,10 @@ async function refresh() {
   } else {
     updateDateList(commitsByDay);
   }
-  // display Icons
-  // setIcons(Number(counter.innerHTML));
 
   // display userID
   const userId = await getStorage(USER_ID);
   displayUserId(userId);
-}
-
-/**
- *
- * @param {*} number
- */
-function setIcons(number) {
-  const plantImgEl = document.getElementById("plant-img");
-  if (number === 0) {
-    plantImgEl.src = LEAF00_SVG_PAHT;
-  } else if (number < 10) {
-    plantImgEl.src = DEMO_IMG_PAHT;
-  } else if (number >= 10) {
-    plantImgEl.src = "../assets/images/plant/plant16.png";
-  }
 }
 
 /**
