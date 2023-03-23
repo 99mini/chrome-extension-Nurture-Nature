@@ -143,7 +143,7 @@ img.commit-img {
   background-color: var(--color-dark-grey);
   border: none;
 
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 }
 
 /* input */
@@ -169,8 +169,13 @@ li.on-count {
 }
 
 /* div */
+#main-section-header {
+  padding: 0 1rem;
+}
+
 #date-list-container {
   font-size: var(--font-size-base);
+  padding: 0 1rem;
 }
 
 /* h1 */

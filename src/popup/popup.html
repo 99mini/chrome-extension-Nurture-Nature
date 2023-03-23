@@ -8,25 +8,43 @@
   <body>
     <!-- 메인 팝업 -->
     <section id="main-section" class="popup-section">
-      <header class="main-section-header">
+      <!-- 헤더 -->
+      <header id="main-section-header">
         <a id="hello-user-a" target="_blank"></a>
         <div class="row-layout">
           <h1>최근 10일 간 커밋 수 -&nbsp;</h1>
           <h1 id="counter">0</h1>
         </div>
-        <img id="plant-img" src="" alt="" />
+        <!-- <img id="plant-img" src="" alt="" /> -->
       </header>
+      <!-- 헤더 -->
+      <!-- 데일리 커밋 갯수 리스트 -->
       <hr class="line" />
       <div id="date-list-container"></div>
+      <!-- 데일리 커밋 갯수 리스트 -->
+      <!-- 아이디 설정 / 새로고침 / 닫기 버튼 -->
       <hr class="line" />
       <button id="set-userId-btn" class="menu-button">
-        <span> 아이디 설정 </span>
+        <span>아이디 설정</span>
         <!-- <span class="short-cut-text"> ⌘U </span> -->
       </button>
       <button id="refresh-btn" class="menu-button">
-        <span> 새로고침 </span>
+        <span>새로고침</span>
         <!-- <span class="short-cut-text"> ⌘R </span> -->
       </button>
+      <button id="close-btn" class="menu-button">
+        <span>닫기</span>
+        <!-- <span class="short-cut-text"> ⌘Q </span> -->
+      </button>
+      <!-- 아이디 설정 / 새로고침 / 닫기 버튼 -->
+      <!-- 개발자 문의 버튼 -->
+      <hr class="line" />
+      <button id="connet-dev" class="menu-button">
+        <a href="mailto: min390@uos.ac.kr" style="width: 100%; display: flex">
+          <span>개발자 문의</span>
+        </a>
+      </button>
+      <!-- 개발자 문의 버튼 -->
     </section>
     <!-- 메인 팝업 -->
     <!-- 유저 아이디 설정 팝업 -->

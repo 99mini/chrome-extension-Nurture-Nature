@@ -31,8 +31,6 @@ const CLOSE_POPUP = "closePopup";
 
 let loading = false;
 
-let commitCount = 0;
-let commitsByDay = {};
 let userId = "";
 
 init();
@@ -44,12 +42,10 @@ async function init() {
   // console.log("init call...!");
   // get chrome local storage
   loading = false;
-  await refresh();
   togglePopupMenu(MAIN);
+  await refresh();
 
-  displayUserId(userId);
-
-  // 클릭이벤트 만들기
+  // 클릭 이벤트 만들기
   document
     .getElementById("set-userId-btn")
     .addEventListener("click", function (event) {
@@ -66,6 +62,11 @@ async function init() {
     .getElementById("back-btn")
     .addEventListener("click", function (event) {
       togglePopupMenu(MAIN);
+    });
+  document
+    .getElementById("close-btn")
+    .addEventListener("click", function (event) {
+      window.close();
     });
 
   setHandleSubmit("userId-input", "userId-submit-btn", USER_ID);
@@ -149,7 +150,7 @@ function togglePopupMenu(mode) {
  * @param {*} userId
  */
 function displayUserId(userId) {
-  helloUserA.innerHTML = "안녕, @" + userId;
+  helloUserA.innerHTML = "안녕 깃헙 식집사, @" + userId;
   helloUserA.href = "https://github.com/" + userId;
 }
 
@@ -161,11 +162,11 @@ async function refresh() {
   await callBackgroundFunc(REFRESH_ACTION);
   // }
   // set total commitCount
-  commitCount = await getStorage(COMMIT_COUNT);
+  const commitCount = await getStorage(COMMIT_COUNT);
   counter.innerHTML = commitCount;
 
   // set commitsByDay
-  commitsByDay = await getStorage(COMMITS_BY_DAY);
+  const commitsByDay = await getStorage(COMMITS_BY_DAY);
 
   if (!dateListContainer.hasChildNodes()) {
     dateListContainer.appendChild(generateList(commitsByDay, null, null));
@@ -173,10 +174,10 @@ async function refresh() {
     updateDateList(commitsByDay);
   }
   // display Icons
-  setIcons(Number(counter.innerHTML));
+  // setIcons(Number(counter.innerHTML));
 
   // display userID
-  userId = await getStorage(USER_ID);
+  const userId = await getStorage(USER_ID);
   displayUserId(userId);
 }
 
@@ -188,13 +189,10 @@ function setIcons(number) {
   const plantImgEl = document.getElementById("plant-img");
   if (number === 0) {
     plantImgEl.src = LEAF00_SVG_PAHT;
-    chrome.action.setIcon({ path: LEAF00_SVG_PAHT });
   } else if (number < 10) {
     plantImgEl.src = DEMO_IMG_PAHT;
-    chrome.action.setIcon({ path: DEMO_IMG_PAHT });
   } else if (number >= 10) {
     plantImgEl.src = "../assets/images/plant/plant16.png";
-    chrome.action.setIcon({ path: "../assets/images/plant/plant16.png" });
   }
 }
 
