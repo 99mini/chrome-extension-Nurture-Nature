@@ -41,7 +41,7 @@ init();
  *
  */
 async function init() {
-  console.log("init call...!");
+  // console.log("init call...!");
   // get chrome local storage
   loading = false;
   await refresh();
@@ -115,7 +115,7 @@ async function setHandleSubmit(inputElementId, btnElementId, storageKey) {
 
   btnElement.onclick = async () => {
     const inputContent = inputEl.value;
-    console.log(inputContent);
+    // console.log(inputContent);
 
     if (inputContent.length !== 0) {
       setStorage(storageKey, inputContent);
@@ -222,6 +222,7 @@ function generateList(data, parentList, parentItem) {
       generateList(data[key], list, item);
     } else {
       var img = setDateItem(Number(data[key]), item);
+      img.id = key;
 
       if (item.hasChildNodes()) {
         item.createTextNode(key + " - ");
@@ -291,9 +292,8 @@ function updateDateList(dateList) {
     element.createTextNode(key + " - ");
     element.appendChild(img);
     element.createTextNode(data[key]);
-    // element.innerHTML = key + " - " + value;
   }
-  console.log("updateCommitsByDay");
+  // console.log("updateCommitsByDay");
 }
 
 /**
@@ -302,7 +302,7 @@ function updateDateList(dateList) {
  */
 async function callBackgroundFunc(actoinName) {
   await chrome.runtime.sendMessage({ action: actoinName }, function (response) {
-    console.log("Background function called from popup");
+    // console.log("Background function called from popup");
   });
-  console.log("end background.js call");
+  // console.log("end background.js call");
 }

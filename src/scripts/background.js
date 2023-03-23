@@ -94,13 +94,12 @@ function calcCommitCount(commitsByDay) {
  * @param {*} username
  */
 async function setCommitCount(username) {
-  // const { commitsByDay, commitCount } = await fecthCommitCount(username);
   const commitsByDay = await fecthUserInfo(username);
   const commitCount = calcCommitCount(commitsByDay);
 
-  console.log(username);
-  console.log(commitsByDay);
-  console.log(commitCount);
+  // console.log(username);
+  // console.log(commitsByDay);
+  // console.log(commitCount);
 
   setStorage(COMMIT_COUNT, commitCount);
   setStorage(COMMITS_BY_DAY, commitsByDay);
