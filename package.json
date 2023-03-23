@@ -1,6 +1,6 @@
 {
-  "name": "chrome-extension-app",
-  "version": "1.0.0",
+  "name": "nurture-nature",
+  "version": "0.1.0",
   "main": "/src/popup.js",
   "devDependencies": {
     "@babel/core": "^7.21.3",
