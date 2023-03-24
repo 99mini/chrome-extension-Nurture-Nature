@@ -5,7 +5,6 @@ const COMMITS_BY_DAY = "commitsByDay";
 
 // background action name
 const REFRESH_ACTION = "refreshAction";
-const CLOSE_POPUP = "closePopup";
 
 /**
  *
@@ -200,8 +199,6 @@ chrome.runtime.onMessage.addListener(async function (
     await setCommitCount(userId);
 
     return await getStorage(COMMITS_BY_DAY);
-  } else if (request.action === CLOSE_POPUP) {
-    window.close();
   }
 });
 

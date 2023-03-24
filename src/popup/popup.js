@@ -24,7 +24,6 @@ const COMMITS_BY_DAY = "commitsByDay";
 
 // background action name
 const REFRESH_ACTION = "refreshAction";
-const CLOSE_POPUP = "closePopup";
 
 let loading = false;
 
@@ -93,7 +92,7 @@ async function getStorage(key) {
       resolve(result[key]);
     });
   });
-  let result = await newPromise;
+  let result = newPromise;
   return result;
 }
 
