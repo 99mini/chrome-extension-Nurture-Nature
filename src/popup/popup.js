@@ -39,7 +39,7 @@ async function init() {
   // get chrome local storage
   loading = false;
   togglePopupMenu(MAIN);
-  await refresh();
+  loading = await refresh();
 
   // 클릭 이벤트 만들기
   document
@@ -51,7 +51,7 @@ async function init() {
   document
     .getElementById("refresh-btn")
     .addEventListener("click", async function (event) {
-      await refresh();
+      const loading = await refresh();
     });
 
   document
@@ -66,8 +66,6 @@ async function init() {
     });
 
   setHandleSubmit("userId-input", "userId-submit-btn", USER_ID);
-
-  loading = true;
 }
 
 /**
@@ -116,6 +114,8 @@ async function setHandleSubmit(inputElementId, btnElementId, storageKey) {
 
     if (inputContent.length !== 0) {
       setStorage(storageKey, inputContent);
+      const reLoading = await refresh();
+
       inputEl.value = "";
       window.close();
     }
@@ -146,8 +146,16 @@ function togglePopupMenu(mode) {
  * @param {*} userId
  */
 function displayUserId(userId) {
-  helloUserA.innerHTML = "안녕 깃헙 식집사, @" + userId;
-  helloUserA.href = "https://github.com/" + userId;
+  let titleText = "";
+  let url = "";
+  if (userId === "") {
+    titleText = "안녕 깃헙 식집사, 아이디 설정을 하세요.";
+  } else {
+    titleText = "안녕 깃헙 식집사, @" + userId;
+    url += "https://github.com/" + userId;
+    helloUserA.href = url;
+  }
+  helloUserA.innerHTML = titleText;
 }
 
 /**
@@ -155,7 +163,8 @@ function displayUserId(userId) {
  */
 async function refresh() {
   // if (loading) {
-  await callBackgroundFunc(REFRESH_ACTION);
+  const endBgFunc = await callBackgroundFunc(REFRESH_ACTION);
+
   // }
   // set total commitCount
   const commitCount = await getStorage(COMMIT_COUNT);
@@ -173,6 +182,8 @@ async function refresh() {
   // display userID
   const userId = await getStorage(USER_ID);
   displayUserId(userId);
+
+  return true;
 }
 
 /**
@@ -278,8 +289,13 @@ function updateDateList(dateList) {
  * @param {*} actoinName
  */
 async function callBackgroundFunc(actoinName) {
-  await chrome.runtime.sendMessage({ action: actoinName }, function (response) {
-    // console.log("Background function called from popup");
-  });
+  const loading = await chrome.runtime.sendMessage(
+    { action: actoinName },
+    function (response) {
+      // console.log("Background function called from popup");
+      return true;
+    }
+  );
+  return loading;
   // console.log("end background.js call");
 }
