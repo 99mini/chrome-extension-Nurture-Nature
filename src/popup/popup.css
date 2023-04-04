@@ -72,6 +72,10 @@ input {
   display: flex;
   flex-direction: row;
 }
+.col-layout {
+  display: flex;
+  flex-direction: column;
+}
 /* 레이아웃 */
 
 /* 아이디 */
@@ -190,7 +194,8 @@ li.on-count {
 }
 
 /* span */
-.short-cut-text {
+.short-cut-text,
+.sub-en-text {
   color: var(--color-dark-grey);
 }
 

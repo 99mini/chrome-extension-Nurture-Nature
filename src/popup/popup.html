@@ -27,21 +27,21 @@
       <button id="set-userId-btn" class="menu-button">
         <div>
           <span>아이디 설정 </span>
-          <span style="color: var(--color-dark-grey)"> Set Github Id </span>
+          <span class="sub-en-text"> Set Github Id </span>
         </div>
         <!-- <span class="short-cut-text"> ⌘U </span> -->
       </button>
       <button id="refresh-btn" class="menu-button">
         <div>
           <span>새로고침 </span>
-          <span style="color: var(--color-dark-grey)"> Refresh </span>
+          <span class="sub-en-text"> Refresh </span>
         </div>
         <!-- <span class="short-cut-text"> ⌘R </span> -->
       </button>
       <button id="close-btn" class="menu-button">
         <div>
           <span>닫기 </span>
-          <span style="color: var(--color-dark-grey)"> Close </span>
+          <span class="sub-en-text"> Close </span>
         </div>
         <!-- <span class="short-cut-text"> ⌘Q </span> -->
       </button>
@@ -52,9 +52,7 @@
         <a href="mailto: min390@uos.ac.kr" style="width: 100%; display: flex">
           <div>
             <span>개발자 문의 </span>
-            <span style="color: var(--color-dark-grey)">
-              Connect developer</span
-            >
+            <span class="sub-en-text"> Connect developer</span>
           </div>
         </a>
       </button>
@@ -64,8 +62,14 @@
     <!-- 유저 아이디 설정 팝업 -->
     <section id="set-userId-section" class="popup-section">
       <label for="userId-input" class="text-input-label">
-        <h1 class="title-text">아이디를 설정합니다</h1>
-        <span class="description-text"> Github 아이디를 입력하세요. </span>
+        <div class="col-layout title-text">
+          <span>아이디를 설정합니다</span>
+          <span class="sub-en-text">Set Github ID</span>
+        </div>
+        <div class="description-text col-layout">
+          <span> Github 아이디를 입력하세요. </span>
+          <span span class="sub-en-text"> Enter your Github ID. </span>
+        </div>
         <br />
       </label>
       <input
