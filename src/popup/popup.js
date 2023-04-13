@@ -159,6 +159,7 @@ function displayUserId(userId) {
   let url = "";
   if (userId === "") {
     titleText = "안녕 깃헙 식집사, 아이디 설정을 하세요.";
+    helloUserA.addEventListener("click", () => togglePopupMenu(SET_USER_ID));
   } else {
     titleText = "안녕 깃헙 식집사, @" + userId;
     url += "https://github.com/" + userId;
