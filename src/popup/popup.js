@@ -6,6 +6,14 @@ const counter = document.getElementById("counter");
 const mainSetcionElement = document.getElementById("main-section");
 const setUserIdSetcionElement = document.getElementById("set-userId-section");
 
+const DOM_LIST = [
+  helloUserA,
+  dateListContainer,
+  counter,
+  mainSetcionElement,
+  setUserIdSetcionElement,
+];
+
 // scg path
 const LEAF00_SVG_PAHT = "../assets/svgs/leaf/leaf00.svg";
 const LEAF01_SVG_PAHT = "../assets/svgs/leaf/leaf01.svg";
@@ -35,6 +43,7 @@ init();
  *
  */
 async function init() {
+  if (DOM_LIST.includes(null)) return;
   // console.log("init call...!");
   // get chrome local storage
   loading = false;
