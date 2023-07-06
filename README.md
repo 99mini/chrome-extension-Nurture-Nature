@@ -2,6 +2,11 @@
 
 ## 개요
 
+<img width="267" alt="메인이미지" src="https://github.com/99mini/chrome-extension-Nurture-Nature/assets/43674669/6c86f3a0-e865-44ca-a0a3-6779d7c90c87">
+<img width="269" alt="아이디설정" src="https://github.com/99mini/chrome-extension-Nurture-Nature/assets/43674669/3073c3cb-9e8d-4776-ace1-d45de397c165">
+
+
+
 GitHub 커밋과 기여도 개수를 표시하도록 설계되어 개발의 동기부여를 합니다. 전반적으로 우리 애플리케이션은 GitHub 커밋을 추적하고 리포지토리 변경 사항을 최신 상태로 유지하기 위한 사용하기 쉬운 인터페이스를 제공합니다. 개발자, 프로젝트 관리자 또는 호기심 많은 사용자이든 관계없이 GitHub 활동을 쉽게 모니터링하고 개발의 동기부여를 할 수 있습니다.
 [여기](https://chrome.google.com/webstore/detail/%EC%9E%90%EC%97%B0%EC%9D%84-%ED%82%A4%EC%9A%B0%EB%8B%A4-%EA%B9%83%ED%97%99-%EA%B8%B0%EC%97%AC%EB%8F%84-%EC%BB%A4%EB%B0%8B-%ED%99%95%EC%9D%B8/bcgnmmmgdnlgbadndlmdglmeadgdogeb?hl=ko)를 눌러서 크롬에 추가하세요!
 
