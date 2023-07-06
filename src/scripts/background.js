@@ -21,7 +21,8 @@ const REFRESH_ACTION = "refreshAction";
  * } ,...]
  */
 async function fecthUserInfo(username) {
-  const baseUrl = process.env.API_URL;
+  const baseUrl =
+    "http://chromeextensionappbe-env.eba-q3tmhahd.ap-northeast-2.elasticbeanstalk.com";
   const url = "/api/user";
   const query = "?username=" + username;
   const res = await fetch(baseUrl + url + query);
