@@ -33,15 +33,18 @@ const COMMITS_BY_DAY = "commitsByDay";
 // background action name
 const REFRESH_ACTION = "refreshAction";
 
+// 잎사귀 그림 0 3 6 10
+const NO_COMMIT = 0;
+const FIRST_COMMIT = 3;
+const SECCOND_COMMIT = 6;
+const THRID_COMMIT = 10;
+
 let loading = false;
 
 let userId = "";
 
 init();
 
-/**
- *
- */
 async function init() {
   if (DOM_LIST.includes(null)) return;
   // console.log("init call...!");
@@ -250,19 +253,19 @@ function generateList(data, parentList, parentItem) {
 function setDateItem(count, item) {
   var img = new Image();
   img.classList.add("commit-img");
-  if (count === 0) {
+  if (count === NO_COMMIT) {
     item.classList.add("off-count");
     img.src = LEAF00_SVG_PAHT;
     img.alt = "leaf00 svg";
   } else {
     item.classList.add("on-count");
-    if (count < 3) {
+    if (count < FIRST_COMMIT) {
       img.src = LEAF01_SVG_PAHT;
       img.alt = "leaf01 svg";
-    } else if (count < 6) {
+    } else if (count < SECCOND_COMMIT) {
       img.src = LEAF02_SVG_PAHT;
       img.alt = "leaf02 svg";
-    } else if (count < 10) {
+    } else if (count < THRID_COMMIT) {
       img.src = LEAF03_SVG_PAHT;
       img.alt = "leaf03 svg";
     } else {
